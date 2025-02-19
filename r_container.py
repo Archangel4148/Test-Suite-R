@@ -23,6 +23,7 @@ class RAnalysisContainer:
         :param inputs: Keyword arguments matching the expected input keys.
         :return: Cleaned results dictionary.
         """
+
         if set(inputs.keys()) != set(self.input_keys):
             raise ValueError(f"Expected inputs: {self.input_keys}, but got: {list(inputs.keys())}")
 
