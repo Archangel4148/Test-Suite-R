@@ -16,6 +16,7 @@ class RAnalysisContainer:
 
         self.r_script_path = os.path.normpath(r_script_path)
         self.input_keys = self._extract_function_arguments()
+        self.name = "NO_NAME"
 
     def run(self, **inputs):
         """

@@ -19,8 +19,12 @@ class MainWindow(QWidget):
 
         # Connect buttons to functionality
         self.ui.data_file_browse_button.clicked.connect(self.select_data_file)
+        self.ui.output_file_browse_button.clicked.connect(self.select_save_location)
         self.ui.analysis_directory_browse_button.clicked.connect(self.select_analysis_directory)
         self.ui.load_from_file_button.clicked.connect(self.load_input_data_to_display)
+
+        # Connect checkbox to functionality
+        self.ui.save_to_file_checkbox.toggled.connect(self.update_save_to_file_enabled)
 
         # Connecting text changed signals
         self.ui.file_path_line_edit.editingFinished.connect(self.load_input_data_to_display)
@@ -34,6 +38,10 @@ class MainWindow(QWidget):
         # Autosaving/loading on initialization
         self.settings = QSettings("MyCompany", "MyApp")
         self.load_settings()
+
+        # Initialize enabled widgets
+        self.update_enabled_analyses(0)
+        self.update_save_to_file_enabled(self.ui.save_to_file_checkbox.isChecked())
 
         # Track all changes to widgets while program is open
         self.track_changes()
@@ -57,14 +65,15 @@ class MainWindow(QWidget):
                 continue
             r_file_path = os.path.normpath(os.path.join(analysis_directory, r_file))
             container = RAnalysisContainer(r_file_path)
+            container.name = r_file[:-2]
             print("Created analysis container for", r_file_path, "with keys:", container.input_keys)
-            self.analysis_containers[r_file[:-2]] = container
+            self.analysis_containers[container.name] = container
 
             # Add analysis widget to ui
             analysis_widget_container = QWidget()
             analysis_widget = Ui_AnalysisWidget()
             analysis_widget.setupUi(analysis_widget_container)
-            analysis_widget.analysis_name_label.setText(r_file[:-2])
+            analysis_widget.analysis_name_label.setText(container.name)
             self.ui.analysis_selection_layout.insertWidget(self.ui.analysis_selection_layout.count() - 1,
                                                            analysis_widget_container)
 
@@ -100,10 +109,32 @@ class MainWindow(QWidget):
             full_result_string += f"{section_string}\n"
 
         self.ui.output_text_edit.setPlainText(full_result_string)
+        if self.ui.save_to_file_checkbox.isChecked():
+            self.save_to_output_file(analysis_container.name, full_result_string)
+
+    def save_to_output_file(self, test_name: str, result_string: str):
+        save_dir = self.ui.output_file_path_line_edit.text()
+        if not os.path.exists(save_dir):
+            os.makedirs(save_dir)
+
+        # If the file already exists, append a number to the file name
+        file_name = os.path.join(save_dir, f"{test_name}_results.txt")
+
+        counter = 2
+        while os.path.exists(file_name):
+            file_name = os.path.join(save_dir, f"{test_name}_results_{counter}.txt")
+            counter += 1
+
+        with open(file_name, "w") as f:
+            f.write(result_string)
 
     def select_data_file(self):
         file_path, _ = QFileDialog.getOpenFileName(self, "Select File")
         self.ui.file_path_line_edit.setText(file_path)
+
+    def select_save_location(self):
+        dir_path = QFileDialog.getExistingDirectory(self, "Select Save Directory")
+        self.ui.output_file_path_line_edit.setText(dir_path)
 
     def select_analysis_directory(self):
         dir_path = QFileDialog.getExistingDirectory(self, "Select Directory")
@@ -182,6 +213,12 @@ class MainWindow(QWidget):
                             range(self.ui.analysis_selection_layout.count() - 1)]
         for name, container, widget in zip(analysis_names, containers, analysis_widgets):
             widget.setEnabled(num_fields == len(container.input_keys))
+
+    def update_save_to_file_enabled(self, state: bool):
+        for i in range(self.ui.save_to_file_layout.count()):
+            widget = self.ui.save_to_file_layout.itemAt(i).widget()
+            if widget:
+                widget.setVisible(state)
 
     def load_settings(self):
         for widget in self.findChildren((QLineEdit, QTextEdit)):
