@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\main_window.ui'
+# Form implementation generated from reading ui file '.\ui\main_window.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(905, 624)
+        MainWindow.resize(996, 683)
         self.horizontalLayout = QtWidgets.QHBoxLayout(MainWindow)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
@@ -84,11 +84,34 @@ class Ui_MainWindow(object):
         self.load_from_file_button = QtWidgets.QPushButton(MainWindow)
         self.load_from_file_button.setObjectName("load_from_file_button")
         self.verticalLayout_2.addWidget(self.load_from_file_button)
-        self.data_text_edit = QtWidgets.QPlainTextEdit(MainWindow)
-        self.data_text_edit.setObjectName("data_text_edit")
-        self.verticalLayout_2.addWidget(self.data_text_edit)
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.label_4 = QtWidgets.QLabel(MainWindow)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.label_4.setFont(font)
+        self.label_4.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_4.setObjectName("label_4")
+        self.horizontalLayout_5.addWidget(self.label_4)
+        self.label_3 = QtWidgets.QLabel(MainWindow)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.label_3.setFont(font)
+        self.label_3.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_3.setObjectName("label_3")
+        self.horizontalLayout_5.addWidget(self.label_3)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_5)
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        self.input_data_text_edit = QtWidgets.QPlainTextEdit(MainWindow)
+        self.input_data_text_edit.setObjectName("input_data_text_edit")
+        self.horizontalLayout_4.addWidget(self.input_data_text_edit)
+        self.output_text_edit = QtWidgets.QPlainTextEdit(MainWindow)
+        self.output_text_edit.setObjectName("output_text_edit")
+        self.horizontalLayout_4.addWidget(self.output_text_edit)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_4)
         self.verticalLayout_2.setStretch(0, 1)
-        self.verticalLayout_2.setStretch(2, 12)
+        self.verticalLayout_2.setStretch(3, 12)
         self.horizontalLayout_2.addLayout(self.verticalLayout_2)
         self.horizontalLayout_2.setStretch(0, 3)
         self.horizontalLayout_2.setStretch(1, 7)
@@ -106,3 +129,5 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Upload Data"))
         self.data_file_browse_button.setText(_translate("MainWindow", "Browse"))
         self.load_from_file_button.setText(_translate("MainWindow", "Load Data from Selected File"))
+        self.label_4.setText(_translate("MainWindow", "Input Data"))
+        self.label_3.setText(_translate("MainWindow", "Output Data"))

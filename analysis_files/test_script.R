@@ -1,3 +1,5 @@
 process_data <- function(data) {
-  return(toupper(data))
+  return(list(
+    output = toupper(data)
+  ))
 }

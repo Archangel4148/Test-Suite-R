@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>905</width>
-    <height>624</height>
+    <width>996</width>
+    <height>683</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -95,7 +95,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0,12">
+      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0,0,12">
        <property name="spacing">
         <number>5</number>
        </property>
@@ -146,7 +146,48 @@
         </widget>
        </item>
        <item>
-        <widget class="QPlainTextEdit" name="data_text_edit"/>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Input Data</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Output Data</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QPlainTextEdit" name="input_data_text_edit"/>
+         </item>
+         <item>
+          <widget class="QPlainTextEdit" name="output_text_edit"/>
+         </item>
+        </layout>
        </item>
       </layout>
      </item>
