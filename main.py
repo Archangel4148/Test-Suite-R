@@ -40,7 +40,6 @@ class MainWindow(QWidget):
         self.load_settings()
 
         # Initialize enabled widgets
-        self.update_enabled_analyses(0)
         self.update_save_to_file_enabled(self.ui.save_to_file_checkbox.isChecked())
 
         # Track all changes to widgets while program is open
@@ -74,11 +73,15 @@ class MainWindow(QWidget):
             analysis_widget = Ui_AnalysisWidget()
             analysis_widget.setupUi(analysis_widget_container)
             analysis_widget.analysis_name_label.setText(container.name)
+            analysis_widget_container.setEnabled(False)
+
             self.ui.analysis_selection_layout.insertWidget(self.ui.analysis_selection_layout.count() - 1,
                                                            analysis_widget_container)
 
             # Connect run button
             analysis_widget.analysis_run_button.clicked.connect(lambda _, c=container: self.run_analysis(c))
+
+        self.update_enabled_analyses(len(self.parsed_input_data))
 
     def clear_analyses(self):
         """
